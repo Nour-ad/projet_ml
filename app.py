@@ -29,7 +29,7 @@ API_URL = "http://localhost:8000"
 # FONCTIONS UTILITAIRES
 # ============================================================================
 
-def check_api_health() -> bool:
+def check_api_health() :
     """Vérifie si l'API est accessible"""
     try:
         response = requests.get(f"{API_URL}/health", timeout=5)
@@ -38,7 +38,7 @@ def check_api_health() -> bool:
         return False
 
 
-def get_prediction(skills: str, top_k: int = 3) -> Dict[str, Any]:
+def get_prediction(skills , top_k= 3):
     """Appelle l'endpoint /predict"""
     try:
         response = requests.post(
@@ -52,7 +52,7 @@ def get_prediction(skills: str, top_k: int = 3) -> Dict[str, Any]:
         return {"success": False, "error": str(e)}
 
 
-def get_recommendations(skills: str, k: int = 5, include_scores: bool = True) -> Dict[str, Any]:
+def get_recommendations(skills , k= 5, include_scores = True) :
     """Appelle l'endpoint /recommend"""
     try:
         response = requests.post(
@@ -66,7 +66,7 @@ def get_recommendations(skills: str, k: int = 5, include_scores: bool = True) ->
         return {"success": False, "error": str(e)}
 
 
-def get_stats() -> Dict[str, Any]:
+def get_stats() :
     """Récupère les statistiques"""
     try:
         response = requests.get(f"{API_URL}/stats", timeout=5)
@@ -81,7 +81,7 @@ def get_stats() -> Dict[str, Any]:
 # ============================================================================
 def main():
     # Header
-    st.title("🎯 Job Recommendation System")
+    st.title(" Job Recommendation System")
     st.markdown("### Trouvez les jobs qui correspondent à vos compétences")
     st.markdown("---")
     
@@ -94,10 +94,10 @@ def main():
         st.code("python main.py", language="bash")
         st.stop()
     
-    st.success("✅ API connectée")
+    st.success(" API connectée")
     
     # ===== 1. DÉFINITION DU MODE =====
-    st.subheader("⚙️ Paramètres")
+    st.subheader(" Paramètres")
     
     col_mode, col_num = st.columns([2, 1])
     
@@ -127,7 +127,7 @@ def main():
     col1, col2 = st.columns([2, 1])
     
     with col1:
-        st.subheader("📝 Vos compétences")
+        st.subheader(" Vos compétences")
         skills_input = st.text_area(
             "Entrez vos compétences (séparées par des espaces, virgules ou tirets)",
             placeholder="Exemple: Python SQL Machine Learning pandas scikit-learn",
@@ -135,9 +135,9 @@ def main():
         )
     
     with col2:
-        st.subheader("🚀 Actions")
+        st.subheader(" Actions")
         analyze_button = st.button(
-            "✨ Analyser mes compétences",
+            " Analyser mes compétences",
             type="primary",
             use_container_width=True
         )
@@ -146,7 +146,7 @@ def main():
     
     # ===== 3. TRAITEMENT =====
     if analyze_button and skills_input.strip():
-        with st.spinner("🔄 Analyse en cours..."):
+        with st.spinner(" Analyse en cours..."):
             
             if mode == "prediction":
                 result = get_prediction(skills_input, top_k=3)
@@ -155,12 +155,12 @@ def main():
                     data = result["data"]
                     
                     # Résultat principal
-                    st.subheader("🎯 Résultat de la prédiction")
+                    st.subheader(" Résultat de la prédiction")
                     
                     col_result1, col_result2 = st.columns([2, 1])
                     
                     with col_result1:
-                        st.markdown(f"### 🏆 **{data['predicted_title']}**")
+                        st.markdown(f"###  **{data['predicted_title']}**")
                         
                         # Confiance
                         confidence = data['confidence']
@@ -169,10 +169,10 @@ def main():
                         st.progress(confidence)
                         
                         if data.get("warning"):
-                            st.warning(f"⚠️ {data['warning']}")
+                            st.warning(f" {data['warning']}")
                         
                         if data.get("ambiguity_warning"):
-                            st.info(f"ℹ️ {data['ambiguity_warning']}")
+                            st.info(f" {data['ambiguity_warning']}")
                     
                     with col_result2:
                         st.metric(
@@ -185,7 +185,7 @@ def main():
                             st.metric("Écart avec 2ème classe", f"{data['probability_gap']:.1%}")
                     
                     # Top prédictions
-                    st.subheader("📊 Top 3 des prédictions")
+                    st.subheader(" Top 3 des prédictions")
                     top_preds = data['top_predictions']
                     df_preds = pd.DataFrame(top_preds)
                     
@@ -220,7 +220,7 @@ def main():
                     
                     if data["success"]:
                         # ===== EN-TÊTE DES RÉSULTATS (SANS CLASSE) =====
-                        st.subheader("✅ Recommandations trouvées")
+                        st.subheader(" Recommandations trouvées")
                         
                         # Affichage simplifié sans la classe prédite
                         col_header1, col_header2, col_header3 = st.columns(3)
@@ -244,12 +244,12 @@ def main():
                         # Avertissements
                         if data.get("warnings"):
                             for warning in data["warnings"]:
-                                st.warning(f"⚠️ {warning['message']}")
+                                st.warning(f" {warning['message']}")
                         
                         st.markdown("---")
                         
                         # ===== JOBS RECOMMANDÉS =====
-                        st.subheader(f"🎯 Top {len(data['recommendations'])} des jobs recommandés")
+                        st.subheader(f" Top {len(data['recommendations'])} des jobs recommandés")
                         
                         for rec in data["recommendations"]:
                             rank_emoji = "🥇" if rec['rank'] == 1 else "🥈" if rec['rank'] == 2 else "🥉" if rec['rank'] == 3 else "📌"
@@ -306,14 +306,14 @@ def main():
                         
                         # Résumé des similarités
                         if data.get("similarity_avg"):
-                            st.info(f"📊 **Correspondance moyenne:** {data['similarity_avg']:.1%}")
+                            st.info(f" **Correspondance moyenne:** {data['similarity_avg']:.1%}")
                     
                     else:
                         # Rejet
                         st.error(f" {data['message']}")
                         
                         if data.get("suggestions"):
-                            st.subheader("💡 Suggestions")
+                            st.subheader(" Suggestions")
                             for suggestion in data["suggestions"]:
                                 st.write(f"• {suggestion}")
                 
@@ -328,7 +328,7 @@ def main():
     st.markdown(
         """
         <div style='text-align: center; color: gray;'>
-            <p>🎯 Job Recommendation System | Powered by XGBoost & Sentence Transformers</p>
+            <p> Job Recommendation System | Powered by XGBoost & Sentence Transformers</p>
         </div>
         """,
         unsafe_allow_html=True
