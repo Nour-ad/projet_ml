@@ -57,7 +57,7 @@ for key, results in results_all.items():
         best_model_key = key
 
 print("\n" + "="*70)
-print(f"🏆 MEILLEUR MODÈLE : {results_all[best_model_key]['model_name']}")
+print(f" MEILLEUR MODÈLE : {results_all[best_model_key]['model_name']}")
 print(f"   Accuracy : {best_score:.4f}")
 print("="*70)
 
