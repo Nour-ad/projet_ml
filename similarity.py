@@ -24,7 +24,7 @@ class JobSimilaritySearch:
     MODERATE_CONFIDENCE = 0.50   # Seuil de confiance modérée
     MODERATE_SIMILARITY = 0.40   # Seuil de similarité modérée
     
-    def __init__(self, models_dir: str = "models", data_dir: str = "data"):
+    def __init__(self, models_dir= "models", data_dir = "data"):
         """
         Initialise le système de recherche
         
@@ -73,7 +73,7 @@ class JobSimilaritySearch:
         except Exception as e:
             raise RuntimeError(f"Erreur lors du chargement des ressources: {e}")
     
-    def encode_skills(self, skills_text: str) -> np.ndarray:
+    def encode_skills(self, skills_text) :
         """
         Encode le texte de compétences en embedding
         
@@ -89,8 +89,8 @@ class JobSimilaritySearch:
         )
         return embedding
     
-    def recommend_jobs( self,  skills_text: str,  k: int = 5, include_scores: bool = True
-) -> Dict:
+    def recommend_jobs( self,  skills_text,  k = 5, include_scores = True
+) :
         """
         Recommande des jobs basés sur les compétences
         
@@ -273,7 +273,7 @@ class JobSimilaritySearch:
         
         return result
     
-    def get_job_details(self, job_index: int) -> Optional[Dict]:
+    def get_job_details(self, job_index) :
         """
         Récupère les détails d'un job par son index
         
@@ -294,7 +294,7 @@ class JobSimilaritySearch:
             "skills": eval(job['skills']) if isinstance(job['skills'], str) else job['skills']
         }
     
-    def get_stats(self) -> Dict:
+    def get_stats(self):
         """
         Retourne des statistiques sur la base de données
         
@@ -329,7 +329,7 @@ if __name__ == "__main__":
     print("="*70)
     
     test_skills = "Python SQL Machine Learning pandas scikit-learn"
-    print(f"\n📝 Compétences: {test_skills}")
+    print(f"\n Compétences: {test_skills}")
     
     result = search_engine.recommend_jobs(test_skills, k=5, include_scores=True)
     
