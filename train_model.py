@@ -296,9 +296,9 @@ if __name__ == "__main__":
     
     args = parser.parse_args()
     
-    print("\n" + "🚀 " + "="*66 + " 🚀")
+    print("\n" + "="*66 )
     print(f"   ENTRAÎNEMENT DU MODÈLE : {MODEL_CONFIGS[args.model]['name']}")
-    print("🚀 " + "="*66 + " 🚀")
+    print("="*66)
     
     # Chargement des données
     X_train, X_test, y_train, y_test, le = load_and_prepare_data()
