@@ -34,7 +34,7 @@ class JobClassifier:
         for path in [self.model_path, self.encoder_path, self.embeddings_path]:
             if not path.exists():
                 raise FileNotFoundError(f"  Fichier introuvable: {path}")
-            print(f"✅ Trouvé: {path.name}")
+            print(f" Trouvé: {path.name}")
         
         self._load_models()
     
@@ -58,7 +58,7 @@ class JobClassifier:
         except Exception as e:
             raise RuntimeError(f"Erreur lors du chargement des modèles: {e}")
     
-    def encode_skills(self, skills_text: str) -> np.ndarray:
+    def encode_skills(self, skills_text) :
         """
         Encode le texte de compétences en embedding
         
@@ -74,7 +74,7 @@ class JobClassifier:
         )
         return embedding
     
-    def predict_job_title(self, skills_text: str, return_probabilities: bool = True,top_k: int = 3 ) -> Dict:
+    def predict_job_title(self, skills_text, return_probabilities = True,top_k= 3 ) :
         """
         Prédit le titre de poste à partir des compétences
         
@@ -154,7 +154,7 @@ class JobClassifier:
         
         return result
     
-    def get_available_classes(self) -> List[str]:
+    def get_available_classes(self) :
         """
         Retourne la liste des classes (titres de postes) disponibles
         
