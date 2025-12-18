@@ -54,7 +54,7 @@ async def startup_event():
     global classifier, similarity_engine
     
     print("\n" + "="*70)
-    print(" 🚀 DÉMARRAGE DE L'API")
+    print("  DÉMARRAGE DE L'API")
     print("="*70)
     
     try:
@@ -65,8 +65,8 @@ async def startup_event():
         # Chargement du moteur de similarité
         print("\n Chargement du moteur de similarité...")
         similarity_engine = JobSimilaritySearch(
-        models_dir=str(MODELS_DIR),  # ✅
-        data_dir=str(DATA_DIR)  # ✅
+        models_dir=str(MODELS_DIR),  
+        data_dir=str(DATA_DIR)  
     )
         
         print("\n API prête !")
@@ -372,9 +372,9 @@ async def internal_error_handler(request, exc):
 if __name__ == "__main__":
     import uvicorn
     
-    print("\n" + "🚀 " + "="*66 + " 🚀")
+    print("\n" + "="*66 )
     print("   DÉMARRAGE DU SERVEUR FASTAPI")
-    print("🚀 " + "="*66 + " 🚀\n")
+    print("="*66 )
     
     uvicorn.run(
         "main:app",
