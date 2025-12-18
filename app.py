@@ -105,7 +105,7 @@ def main():
         mode = st.radio(
             "Mode d'analyse",
             ["prediction", "recommendation"],
-            format_func=lambda x: "🔮 Prédiction simple" if x == "prediction" else "🎯 Recommandation complète",
+            format_func=lambda x: " Prédiction simple" if x == "prediction" else " Recommandation complète",
             horizontal=True,
             index=0
         )
